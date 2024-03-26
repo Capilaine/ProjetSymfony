@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ produit.nom }}{% endblock %}
+
+{% block body %}
+
+    <header>
+        <a href="{{path('accueil')}}">
+            <img src="{{asset('img/logoShop.png')}}" alt="Logo del'entreprise" class="logo">
+        </a>
+        <div class="titre">
+            <h1>Vous êtes sur la page de : {{ produit.nom }} !</h1>
+        </div>
+        <button class="bouton" onclick="window.location.href='{{ path('liste_produits') }}'"><span>Vers tous nos produits</span></button>
+    </header>
+
+<div class="example-wrapper">
+    <h1>Informations du produit</h1>
+    <div class="product-info">
+        <div class="product-details">
+            <p><strong>Nom du produit :</strong> {{ produit.nom }}</p>
+            <p><strong>Description du produit :</strong> {{ produit.description }}</p>
+            <p><strong>Nombre actuellement en stock :</strong> {{ produit.stock }}</p>
+        </div>
+        <div class="product-image-infos">
+            {% if produit.image %}
+                <img src="{{ asset(produit.image) }}" alt="Image du produit {{ produit.nom }}">
+            {% else %}
+                <p>Aucune image disponible pour ce produit.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="container-liste">
+    <h2>Commentaires</h2>
+    <div class="row-infos">
+        {% for commentaire in produit.commentaire %}
+            <div class="comment">
+                <h4 class="titre-commentaire">{{ commentaire.titre }}</h4>
+                <p>{{ commentaire.contenu }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+        <h2>Ajouter un commentaire</h2>
+        {% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+    <form action="{{ path('ajout_commentaire', {'id': produit.id}) }}" method="post" class="comment-form">
+        <div>
+            <label for="titre">Titre de votre commentaire:</label>
+            <input type="text" id="titre" name="titre">
+        </div>
+        <div>
+            <label for="contenu">Contenu de votre commentaire :</label>
+            <textarea id="contenu" name="contenu"></textarea>
+        </div>
+        <button type="submit">Envoyer</button>
+    </form>
+</div>
+
+{% endblock %}

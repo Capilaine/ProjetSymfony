@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+
+<head>
+    <title>Accueil</title>
+</head>
+
+<body>
+    <header>
+        <a href="{{path('accueil')}}">
+            <img src="{{asset('img/logoShop.png')}}" alt="Logo de l'entreprise" class="logo">
+        </a>
+        <div class="titre">
+            <h1>Bienvenue sur notre site !</h1>
+        </div>
+        <button class="bouton" onclick="window.location.href='{{ path('liste_produits') }}'"><span>Vers tous nos produits</span></button>
+    </header>
+
+    <h1 class="derniers">Nos derniers produits</h1>
+
+    <div class="container">
+        <div class="row">
+            {% for produit in derniersProduits %}
+            <div class="col">
+                <a href="{{ path('details_produit', {'id': produit.id}) }}">
+                    <img src="{{ asset(produit.getImage()) }}" alt="{{ produit.nom }}" class="product-image">
+                    <p>{{ produit.nom }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="admin">
+        <button class="bouton" onclick="window.location.href='{{ path('app_login') }}'"><span>Connexion Administration</span></button>
+    </div>
+</body>
+
+{% endblock %}

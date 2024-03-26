@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    <header>
+        <a href="{{path('accueil')}}">
+            <img src="{{asset('img/logoShop.png')}}" alt="Logo del'entreprise" class="logo">
+        </a>
+        <div class="titre">
+            <h1>Voici la liste de tout nos produits !</h1>
+        </div>
+        <button class="bouton" onclick="window.location.href='{{ path('liste_produits') }}'"><span>Vers tous nos produits</span></button>
+    </header>
+
+    <main class="product-container">
+        {% for produit in tousProduits %}
+            <div class="product-item">
+                <div>
+                    <a href="{{ path('details_produit', {'id': produit.id}) }}">
+                        <img src="{{ asset(produit.getImage()) }}" alt="{{ produit.nom }}" class="product-image-liste">
+                        <p>{{ produit.nom }}</p>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}

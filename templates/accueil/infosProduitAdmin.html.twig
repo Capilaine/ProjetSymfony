@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ produit.nom }}{% endblock %}
+
+{% block body %}
+
+    <header>
+        <a href="{{path('accueil')}}">
+            <img src="{{asset('img/logoShop.png')}}" alt="Logo del'entreprise" class="logo">
+        </a>
+        <div class="titre">
+            <h1>Vous êtes sur la page de : {{ produit.nom }} !</h1>
+        </div>
+        <button class="bouton" onclick="window.location.href='{{ path('liste_produits') }}'"><span>Vers tous nos produits</span></button>
+    </header>
+
+<div class="example-wrapper">
+    <h1>Informations du produit</h1>
+    <div class="product-info">
+        <div class="product-details">
+            <p><strong>Nom du produit :</strong> {{ produit.nom }}</p>
+            <p><strong>Description du produit :</strong> {{ produit.description }}</p>
+            <p><strong>Nombre actuellement en stock :</strong> {{ produit.stock }}</p>
+        </div>
+        <div class="product-image-infos">
+            {% if produit.image %}
+                <img src="{{ asset(produit.image) }}" alt="Image du produit {{ produit.nom }}">
+            {% else %}
+                <p>Aucune image disponible pour ce produit.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+            <div class="container-form">
+        <h2>Modifier les informations du produit</h2>
+        <form action="{{ path('modifier_produit', {'id': produit.id}) }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="_token" value="{{ csrf_token('modify_product') }}">
+            
+            <div>
+                <label for="nom">Nom du produit :</label>
+                <input type="text" id="nom" name="nom" value="{{ produit.nom }}">
+            </div>
+            <div>
+                <label for="description">Description du produit :</label>
+                <textarea id="description" name="description">{{ produit.description }}</textarea>
+            </div>
+            <div>
+                <label for="stock">Nombre actuellement en stock :</label>
+                <input type="number" id="stock" name="stock" value="{{ produit.stock }}">
+            </div>
+            <div>
+                <label for="image">Image du produit :</label>
+                <input type="file" id="image" name="image">
+            </div>
+            <button type="submit">Modifier</button>
+        </form>
+    </div>
+
+
+<div class="container-liste">
+    <h2>Commentaires</h2>
+    <div class="row-infos">
+        {% for commentaire in produit.commentaire %}
+            <div class="comment">
+                <h4 class="titre-commentaire">{{ commentaire.titre }}</h4>
+                <p>{{ commentaire.contenu }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
