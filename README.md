@@ -1,12 +1,13 @@
 # ProjetSymfony
 Mon devoir de Symfony pour le 30/04
 
+Retrouvez le code complet et terminé sur la branche VersionFinale1.0.0.
 
-Ceci est mon devoir de Symfony pour ma formation DISII 2023-2024.
+Ceci est mon devoir de Symfony pour la formation DISII, année 2023-2024.
 
 Le but était de créer un site qui avait un côté internaute et un côté admin.
 
-Le côté internaute devait avoir les pages suivantes et options: 
+Le côté internaute devait avoir les pages et options suivantes: 
 - une page d'accueil avec un message de bienvenue, un logo et la liste des cinq derniers produits ajoutés
 - une page qui liste tous les produits du site
 - une page pour montrer chaque produit de façon individuelle avec leur nom, description, image et le nombre en stock
